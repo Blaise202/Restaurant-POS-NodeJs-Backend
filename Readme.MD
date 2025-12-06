@@ -6,4 +6,5 @@
 
 ## install dependencies
 
-> -- npm install express mongoose dotenv
+1. npm install express mongoose dotenv
+2. npm install nodemon --save-dev
