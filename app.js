@@ -1,15 +1,23 @@
 require("dotenv").config();
 const express = require("express")
 const connetctDb = require("./config/database")
+const config = require("./config/config");
+const globalErrorHandler = require("./middlewares/globalErrorHandler");
+const createHttpError = require("http-errors");
 const app = express()
 
-const PORT = process.env.PORT;
+const PORT = config.port;
 connetctDb();
 
+// Root endpoint
 app.get("/", (request, response) => {
   response.json({ message: "POS Server is working!" });
 })
 
+// Call global error handler
+app.use(globalErrorHandler)
+
+// Server
 app.listen(PORT, () => {
   console.log(`POS server is listening on port ${PORT}`);
 })

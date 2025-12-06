@@ -8,3 +8,7 @@
 
 1. npm install express mongoose dotenv
 2. npm install nodemon --save-dev
+
+## installing http-errors
+
+1. npm install http-errors
