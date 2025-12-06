@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/Blaise202/Restaurant-POS-NodeJs-Backend/issues"
   },
-  "homepage": "https://github.com/Blaise202/Restaurant-POS-NodeJs-Backend#readme"
+  "homepage": "https://github.com/Blaise202/Restaurant-POS-NodeJs-Backend#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
 }
