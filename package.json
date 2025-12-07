@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Blaise202/Restaurant-POS-NodeJs-Backend#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "http-errors": "^2.0.1",

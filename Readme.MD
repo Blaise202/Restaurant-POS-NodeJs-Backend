@@ -1,3 +1,7 @@
+# Run the backend
+
+nodemon
+
 # What happened entirely
 
 ## project setup
@@ -12,3 +16,7 @@
 ## installing http-errors
 
 1. npm install http-errors
+
+## installing bcrypt
+
+1. npm i bcrypt

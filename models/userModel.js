@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -6,7 +7,7 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   email: {
-    type: email,
+    type: String,
     required: true,
     validate: {
       validator: function (v) {
@@ -35,5 +36,13 @@ const userSchema = new mongoose.Schema({
   }
 }, { timestamps: true })
 
+// hash the password before saving the data
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt)
+})
 
-module.exports = mongoose.model("user", userSchema)
+module.exports = mongoose.model("user", userSchema) 

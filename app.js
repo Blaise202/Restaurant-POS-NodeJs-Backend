@@ -9,10 +9,16 @@ const app = express()
 const PORT = config.port;
 connetctDb();
 
+// Middleware
+app.use(express.json()) // parse incoming request in json format
+
 // Root endpoint
 app.get("/", (request, response) => {
   response.json({ message: "POS Server is working!" });
 })
+
+// Other endpoints
+app.use("/api/user", require("./routes/userRoute"))
 
 // Call global error handler
 app.use(globalErrorHandler)
