@@ -20,3 +20,7 @@ nodemon
 ## installing bcrypt
 
 1. npm i bcrypt
+
+## installing web tokens for logged users
+
+1. npm i jsonwebtoken
