@@ -5,24 +5,25 @@ const jwt = require("jsonwebtoken")
 
 const verifyUserMiddleware = async (req, res, next) => {
   try {
-    return "hello"
-    const { accessToken } = req.cookies
+    const { accessToken } = req.cookies;
     if (!accessToken) {
-      const error = createHttpError(400, "No token found!")
-      return next(error);
+      return next(createHttpError(401, "No token found!"));
     }
 
-    const decodeToken = jwt.verify(accessToken, config.accessTokenSecret)
-    const user = await User.findById(decodeToken._id);
+    const decoded = jwt.verify(accessToken, config.accessTokenSecret);
+
+    const user = await User.findById(decoded._id);
     if (!user) {
-      const error = createHttpError(400, "User Not found")
-      return next(error)
+      return next(createHttpError(401, "User not found"));
     }
-    req.user = user
+
+    req.user = user;
+    return next();
+
   } catch (error) {
-    const er = createHttpError(401, "Invalid Token!")
-    next(er)
+    return next(createHttpError(401, "Invalid token"));
   }
-}
+};
+
 
 module.exports = verifyUserMiddleware
