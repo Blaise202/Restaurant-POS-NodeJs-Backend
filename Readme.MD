@@ -1,6 +1,16 @@
 # Run the backend
 
-nodemon
+1. nodemon
+2. npm run dev
+
+**What to have in your dotenv**
+
+```
+PORT = ---- #
+MONGODB_URI = ---- <!--Link to youe mongodb database--> mongodb+srv://<username>:<password>@restposcluster.ymlmq1q.mongodb.net/?appName=<clustername>
+NODE_ENV = "development"
+JWT_SECRET = ---- <!-- something like a random password-->
+```
 
 # What happened entirely
 
@@ -24,3 +34,7 @@ nodemon
 ## installing web tokens for logged users
 
 1. npm i jsonwebtoken
+
+## installing cookies
+
+1. npm install cookie-parser

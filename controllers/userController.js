@@ -8,7 +8,7 @@ const users = async (request, response, next) => {
   const users = await User.find()
   if (users.length == 0) {
     const error = createHttpError(404, "No users found");
-    next(error)
+    return next(error)
   }
   response.status(201).json({
     count: users.length,
@@ -23,13 +23,13 @@ const register = async (req, res, next) => {
     const { name, email, phone, password, role } = req.body;
     if (!name || !email || !phone || !password || !role) {
       const error = createHttpError(400, "All fields are required");
-      next(error)
+      return next(error)
     }
 
     const checkUser = await User.findOne({ email });
     if (checkUser) {
       const error = createHttpError(400, "Email already exists");
-      next(error)
+      return next(error)
     }
 
     const user = { name, email, phone, password, role };
@@ -43,7 +43,7 @@ const register = async (req, res, next) => {
     })
 
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 
@@ -53,19 +53,19 @@ const login = async (req, res, next) => {
     const { email, password } = req.body
     if (!email || !password) {
       const error = createHttpError(400, "All fields are required")
-      next(error)
+      return next(error)
     }
 
     const checkUser = await User.findOne({ email });
     if (!checkUser) {
       const error = createHttpError(401, "Invalid creadentials")
-      next(error)
+      return next(error)
     }
 
     const checkCreadentials = await bcrypt.compare(password, checkUser.password);
     if (!checkCreadentials) {
       const error = createHttpError(401, "Invalid creadentials")
-      next(error)
+      return next(error)
     }
 
     const accessToken = jwt.sign({ _id: checkUser._id }, config.accessTokenSecret, { expiresIn: '1d' })
@@ -84,8 +84,21 @@ const login = async (req, res, next) => {
     })
 
   } catch (error) {
+    return next(error)
+  }
+}
+
+const getUserData = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id)
+    return user
+    res.status(200).json({
+      success: true,
+      data: user
+    })
+  } catch (error) {
     next(error)
   }
 }
 
-module.exports = { users, register, login }
+module.exports = { users, register, login, getUserData }
