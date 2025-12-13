@@ -21,6 +21,7 @@ app.get("/", (request, response) => {
 
 // Other endpoints
 app.use("/api/user", require("./routes/userRoute"))
+app.use("/api/order", require("./routes/orderRoute"))
 
 // Call global error handler
 app.use(globalErrorHandler)
