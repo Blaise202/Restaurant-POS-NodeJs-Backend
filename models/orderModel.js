@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const { applyTimestamps } = require("./userModel")
 
 const orderSchema = new mongoose.Schema({
   customerDetails: {
@@ -12,7 +11,7 @@ const orderSchema = new mongoose.Schema({
       required: true
     },
     guests: {
-      typpe: Number,
+      type: Number,
       required: true
     }
   },
@@ -41,4 +40,4 @@ const orderSchema = new mongoose.Schema({
   items: []
 }, { timestamps: true })
 
-moodule.exports = mongoose.model("Order", orderSchema)
+module.exports = mongoose.model("Order", orderSchema)
