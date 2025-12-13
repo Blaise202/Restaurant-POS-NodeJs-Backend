@@ -1,5 +1,6 @@
 const createHttpError = require("http-errors")
 const Order = require("../models/orderModel")
+const mongoose = require("mongoose")
 
 const orders = async (req, res, next) => {
   try {
@@ -27,7 +28,14 @@ const getOrder = async (req, res, next) => {
 
   try {
 
-    const order = await Order.findById(req.params.id)
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      const error = createHttpError(400, "Invalid Id");
+      return next(error)
+    }
+
+    const order = await Order.findById(id)
     if (!order) {
       const error = createHttpError(404, "Order data not found");
       return next(error)
@@ -85,8 +93,16 @@ const updateOrder = async (req, res, next) => {
   try {
 
     const { orderStatus } = req.body;
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      const error = createHttpError(400, "Invalid Id");
+      return next(error)
+    }
+
+
     const order = await Order.findByIdAndUpdate(
-      req.params.id,
+      id,
       { orderStatus },
       { new: true }
     )
@@ -112,8 +128,17 @@ const deleteOrder = async (req, res, next) => {
 
   try {
 
+
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      const error = createHttpError(400, "Invalid Id");
+      return next(error)
+    }
+
+
     const order = await Order.findByIdAndDelete(
-      req.params.id,
+      id,
       {
         isDeleted: true,
         deletedAt: new Date(),
