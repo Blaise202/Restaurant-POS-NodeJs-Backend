@@ -38,3 +38,7 @@ JWT_SECRET = ---- <!-- something like a random password-->
 ## installing cookies
 
 1. npm install cookie-parser
+
+### install cors
+
+1. npm install cors
